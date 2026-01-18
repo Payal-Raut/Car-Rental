@@ -51,18 +51,21 @@ const fetchDashboardData = async ()=>{
     subTitle="Monitor overall platform performance including total cars, bookings, revenue, and recent activities"
   />
 
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 max-w-3xl">
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
+  gap-6 my-8 max-w-3xl">
     {dashboardCards.map((card, index) => (
       <div
         key={index}
-        className="flex gap-2 items-center justify-between p-4 rounded-md border border-borderColor"
+        className="flex gap-2 items-center justify-between 
+        p-4 rounded-md border border-borderColor"
       >
         <div>
           <h1 className="text-xs text-gray-500">{card.title}</h1>
           <p className="text-lg font-semibold">{card.value}</p>
         </div>
 
-        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
+        <div className="flex items-center justify-center w-10 
+        h-10 rounded-full bg-primary/10">
           <img src={card.icon} alt="" className="h-4 w-4" />
         </div>
       </div>
@@ -84,7 +87,11 @@ const fetchDashboardData = async ()=>{
               src={assets.listIconColored} alt="" className="h-5 w-5"/>
           </div>
           <div>
-            <p>{booking.car.brand} {booking.car.model}</p>
+          <p>
+          {booking.car ? `${booking.car.brand} ${booking.car.model}`
+    : 'Car removed'}
+          </p>
+
             <p className='text-sm text-gray-500'>{booking.createdAt.split('T')[0]}</p>
           </div>
         </div>
@@ -95,6 +102,14 @@ const fetchDashboardData = async ()=>{
         </div>
       </div>
     ))}
+  </div>
+  
+  {/* monthly revenue */}
+  <div className='p-4 md:p-6 mb-6 border border-borderColor rounded-md w-full md:max-w-xs'>
+    <h1 className='text-lg font-medium'>Monthly Revenue</h1>
+    <p className='text-gray-500'>Revenue for current month</p>
+    <p className='text-3xl mt-6 font-semibold text-primary'>
+      {currency}{data.monthlyRevenue}</p>
   </div>
 </div>
 

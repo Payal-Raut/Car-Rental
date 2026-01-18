@@ -13,7 +13,13 @@ const app = express()
 await connectDB()
 
 //middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // Vite frontend
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
 app.get('/', (req,res)=> res.send("Server is running"))

@@ -120,21 +120,33 @@ export const getDashboardData = async (req,res) =>{
             return res.json({success:false , message : "Unauthorized"});
         }
         const cars = await Car.find({owner:_id})
-        const bookings = (await Booking.find({owner:_id}).populate('car')).
-        sort({createdAt: -1});
+        const bookings = await Booking.find({owner:_id}).populate('car').sort({createdAt: -1});
 
         const pendingBookings = await Booking.find({owner:_id , status:"pending"})
         const CompletedBookings = await Booking.find({owner:_id , status:"confirmed"})
 
         // calculate monthly revenue
-        const monthlyRevenue = bookings.slice().filter(booking => booking.status === 'confirmed')
-        .reduce((acc, booking)=> acc + booking . price , 0)
+        // calculate monthly revenue
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+
+            const monthlyRevenue = bookings
+            .filter(booking => {
+                const bookingDate = new Date(booking.createdAt);
+                return (
+                booking.status === 'confirmed' &&
+                bookingDate.getMonth() === currentMonth &&
+                bookingDate.getFullYear() === currentYear
+                );
+            })
+            .reduce((acc, booking) => acc + booking.price, 0);
 
         const dashboardData = {
             totalCars : cars.length,
             totalBookings: bookings.length,
             pendingBookings: pendingBookings.length,
-            CompletedBookings : CompletedBookings.length,
+            completedBookings : CompletedBookings.length,
             recentBookings: bookings.slice(0,3),
             monthlyRevenue
         }
