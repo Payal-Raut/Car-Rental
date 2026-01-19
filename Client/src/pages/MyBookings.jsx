@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { assets, dummyMyBookingsData } from '../../../assets/assets'
+import { assets, dummyMyBookingsData } from "../../assets/assets.js"
 import Title from '../components/Title'
 
 const MyBookings = () => {

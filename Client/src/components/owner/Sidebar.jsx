@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { assets, ownerMenuLinks } from '../../../../assets/assets'
+import { assets, ownerMenuLinks } from "../../../assets/assets.js"
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';

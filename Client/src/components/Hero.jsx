@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { assets, cityList } from '../../../assets/assets'
+import { assets, cityList } from "../../assets/assets.js"
 import { useAppContext } from '../context/AppContext'
 const Hero = () => {
         const [pickupLocation , setPickupLocation] = useState('')

@@ -1,6 +1,6 @@
 import React from 'react'
 import Title from './Title'
-import { assets} from '../../../assets/assets'
+import { assets} from "../../assets/assets.js"
 import CarCard from './CarCard'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext'
