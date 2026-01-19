@@ -14,7 +14,10 @@ await connectDB()
 
 //middleware
 app.use(cors({
-  origin: "http://localhost:5173", // Vite frontend
+  origin: [
+    "http://localhost:5173",
+    "https://car-client-gilt.vercel.app"
+  ], // Vite frontend
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
