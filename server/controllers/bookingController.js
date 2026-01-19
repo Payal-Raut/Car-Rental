@@ -44,7 +44,7 @@ export const createBooking = async (req,res)=>{
 
         const isAvailable = await checkAvailability (car , pickupDate, returnDate)
         if(!isAvailable){
-            return res.json({success:false , message:error.message})
+            return res.json({success:false , message:"Car not available for selected dates"})
         }
         const carData = await Car.findById(car)
 

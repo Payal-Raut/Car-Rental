@@ -114,14 +114,22 @@ export const deleteCar = async (req,res) =>{
 
 //api to get dashboard data
 export const getDashboardData = async (req,res) =>{
+    console.log("Dashboard api hit")
     try {
         const {_id , role} = req.user;
         if(role !== 'owner'){
             return res.json({success:false , message : "Unauthorized"});
         }
         const cars = await Car.find({owner:_id})
-        const bookings = await Booking.find({owner:_id}).populate('car').sort({createdAt: -1});
+        // const bookings = await Booking.find({owner:_id}).populate('car').sort({createdAt: -1});
 
+        const bookings = await Booking.find({owner:_id})
+      .populate({
+        path: 'car',
+        match: { owner: _id }
+      })
+      .sort({ createdAt: -1 });
+      
         const pendingBookings = await Booking.find({owner:_id , status:"pending"})
         const CompletedBookings = await Booking.find({owner:_id , status:"confirmed"})
 
